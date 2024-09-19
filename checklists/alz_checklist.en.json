@@ -1691,6 +1691,7 @@
             "guid": "872e52e3-611c-4c58-a5a4-b1511e43a58a",
             "id": "D09.04",
             "severity": "Medium",
+            "graph": "resources | where type == 'microsoft.network/virtualnetworks' | mv-expand subnet = properties.subnets | where subnet.name !in~ ("GatewaySubnet", "AzureFirewallSubnet", "AzureFirewallManagementSubnet", "RouteServerSubnet") | extend compliant = iff(isnotnull(subnet.properties.networkSecurityGroup.id), true, false) | project id, subnetName = subnet.name, vnetName = name, NSG = subnet.properties.networkSecurityGroup.id, compliant",
             "training": "https://learn.microsoft.com/learn/paths/implement-network-security/",
             "link": "https://learn.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/plan-for-landing-zone-network-segmentation"
         },
